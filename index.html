@@ -7,6 +7,12 @@
     #c{
       background: rgb(19,0,28);
     }
+    #controls{
+      width: 500px;
+    }
+    input[type=number]{
+      width: 100px;
+    }
     </style>
 </head>
 <body>
@@ -34,6 +40,23 @@
         <th><button id="bright">▶</button></th>
         <th><button id="bup">▲</button></th>
         <th><button id="bdown">▼</button></th>
+      </tr>
+      <tr>
+        <th>Noise</th>
+        <th>
+          <label for="noise"> Amount %<br/>
+            <input type='number' id="noise" maxlength="3" value="10">
+          </label>
+        </th>
+        <th>
+          <label for="mono">
+            Monochromatic<br/>
+            <input type="checkbox" checked id="mono"/>
+          </label>
+        </th>
+        <th colspan="2">
+          <button id="make_noise">Make some noise!!</button>
+        </th>
       </tr>
     </table>
     <script src="script.js" type="text/javascript"></script>

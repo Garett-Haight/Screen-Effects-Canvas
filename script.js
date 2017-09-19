@@ -83,6 +83,28 @@ class ImageEffect {
     }
     this.ctx.putImageData(this.imageData, 0, 0);
   }
+
+  // should write a generalized way to apply matrix transformations
+  smooth(size) {
+    var newImg = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    var newData = newImg.data;
+    // red channel
+    for(var i = Math.ceil((size - 1 )/ 2); i < this.data.length - (size - 1)/2; i+=4) {
+        var avg = 0;
+        avg += this.data[i - (this.imageData.width * 4) - 4];
+        avg += this.data[i - (this.imageData.width * 4)];
+        avg += this.data[i - (this.imageData.width * 4) + 4];
+        avg += this.data[i - 4];
+        avg += this.data[i];
+        avg += this.data[i + 4];
+        avg += this.data[i + (this.imageData.width * 4) - 4];
+        avg += this.data[i + (this.imageData.width * 4)];
+        avg += this.data[i + (this.imageData.width * 4) + 4];
+        avg /= 9;
+        newData[i] = avg;
+    }
+    this.ctx.putImageData(newImg, 0, 0);
+  }
 }
 
 var ie;
@@ -133,5 +155,8 @@ document.getElementById('controls').addEventListener('click', (e) => {
             document.getElementById("mono").checked
           );
           break;
+      case 'smooth':
+            ie.smooth(ie.smooth(3));
+        break;
   }
 });
